@@ -7,16 +7,21 @@ contract ZombieOwnership is ZombieFactory {
   mapping (uint => address) zombieApprovals;
 
   function balanceOf(address _owner) public view returns (uint256 _balance) {
-    return ownerZombieCount[_owner];
+    return ownedZombies[_owner].length;
   }
 
   function ownerOf(uint256 _tokenId) public view returns (address _owner) {
     return zombieToOwner[_tokenId];
   }
 
+  function zombiesOf(address _owner) public view returns (uint256[] _ownedZombieIds) {
+    return ownedZombies[_owner];
+  }
+
   function _transfer(address _from, address _to, uint256 _tokenId) private {
-    ownerZombieCount[_to]++;
-    ownerZombieCount[_from]--;
+    ownedZombies[_to].push(_tokenId);
+    uint zombieIndex = ownedZombieIndex[_tokenId];
+    delete ownedZombies[_from][zombieIndex];
     zombieToOwner[_tokenId] = _to;
     //Transfer(_from, _to, _tokenId);
   }
