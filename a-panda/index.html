@@ -7,30 +7,59 @@
     <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-extras.animation-mixer@3.13.1/dist/aframe-extras.animation-mixer.min.js"></script>
     <script>
-      AFRAME.registerComponent("daydream-listener", {
-        init: function() {
-          this.el.addEventListener('controllerconnected', function (evt) {
-            var cursor = document.getElementById('cursor')
-            cursor.parentNode.removeChild(cursor)
+      // AFRAME.registerComponent("daydream-listener", {
+      //   init: function() {
+      //     this.el.addEventListener('click', function (evt) {
+      //       console.log("clicked the panda")
+      //     });
+      //   }
+      // })
+      AFRAME.registerComponent('panda', {
+        init: function () {
+          console.log('Registered');
+          this.el.addEventListener('mouseenter', function (evt) {
+            console.log('I was clicked at: ', evt.detail.target);
           });
         }
-      })
+      });
+
+      AFRAME.registerComponent('controller-event-handler', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('mouseenter', function () {
+            el.setAttribute('material', 'color', '#24CAFF');  
+          });
+        }
+      });
+
+      AFRAME.registerComponent('buy', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('click', function () {
+            App.handleBuy() 
+          });
+        }
+      });
     </script>
   </head>
   <body>
     <a-scene>
+      <a-camera>
+        <a-cursor></a-cursor>
+      </a-camera>
       <a-assets>
         <a-asset-item id="panda" src="models/panda/scene.gltf">
       </a-assets>
       <a-entity daydream-controls laser-controls="hand: right" intersection-spawn="event: click; mixin: voxel" daydream-listener></a-entity>
-      <!-- <a-mixin id="voxel"
-       geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
-       material="src:https://storage.googleapis.com/gltfs/JehkobasFantasy_4/assets/minecraft/textures/blocks/stone.png;"
-       random-color
-       snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-mixin> -->
-      <a-gltf-model src="#panda" animation-mixer position="1 2.4 -15" rotation="0 180 0"></a-gltf-model>
+        <a-entity buy position="-5 2 -6" geometry="primitive: plane; width: 2; height: auto" material="color: #EF2D5E" text="color: white; align: center; font: https://cdn.aframe.io/fonts/DejaVu-sdf.fnt;
+        value: Buy Me!"></a-entity>
+      <a-entity panda gltf-model="#panda" animation-mixer position="1 2.4 -1" rotation="0 180 0"></a-entity>
       <a-sky color="blue"></a-sky>
       <a-plane material="src:https://i.imgur.com/jwZbOjR.png; repeat: 100 100" rotation="-90 0 0" width="500" height="500"></a-plane>
     </a-scene>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/web3.min.js"></script>
+  <script src="js/truffle-contract.js"></script>
+  <script src="js/app.js"></script>
 </html>
