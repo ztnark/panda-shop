@@ -35,12 +35,66 @@ App = {
       // return App.markAdopted();
     });
 
-    // return App.bindEvents();
+    return App.getOwnerZombies();
   },
 
   // bindEvents: function() {
   //   $(document).on('click', '.btn-buy', App.buy);
   // },
+
+  getOwnerZombies: () => {
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+
+      var account = accounts[0];
+
+      App.contracts.Zombie.deployed().then(function(instance) {
+        zombieInstance = instance;
+
+        // zombieInstance.createRandomZombie({from: account});
+        zombieInstance.zombiesOf(account).then(function(result) {
+          console.log(result)
+          for(var i = 0; i < result.length; i++){
+            console.log(result[i].c[0])
+            App.getZombieById(result[i].c[0])
+          }
+          // return App.markAdopted();
+        }).catch(function(err) {
+          debugger
+          // console.log(err.message);
+        });
+      })
+    });
+  },
+
+  getZombieById: (id) => {
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+
+      var account = accounts[0];
+
+      App.contracts.Zombie.deployed().then(function(instance) {
+        zombieInstance = instance;
+
+        // return zombieInstance.createRandomZombie({from: account});
+        zombieInstance.zombies(id).then(function(result) {
+          console.log(result)
+          // for(var i = 0; i < result.length; i++){
+          //   console.log(result[i].c[0])
+          //   App.getZombieById(result[i].c[0])
+          // }
+          // return App.markAdopted();
+        }).catch(function(err) {
+          debugger
+          // console.log(err.message);
+        });
+      })
+    });
+  },
 
   handleBuy: function() {
     event.preventDefault();
@@ -60,10 +114,9 @@ App = {
         zombieInstance = instance;
 
         // return zombieInstance.createRandomZombie({from: account});
-        debugger
         zombieInstance.sendTransaction({
           from: account,
-          gas: 21000,
+          gas: 210000,
           value: 100000000000000000
         }).then(function(result) {
           debugger
