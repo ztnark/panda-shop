@@ -57,10 +57,9 @@ App = {
         zombieInstance.zombiesOf(account).then(function(result) {
           console.log(result)
           for(var i = 0; i < result.length; i++){
-            console.log(result[i].c[0])
+            // console.log(result[i].c[0])
             App.getZombieById(result[i].c[0])
           }
-          // return App.markAdopted();
         }).catch(function(err) {
           debugger
           // console.log(err.message);
@@ -82,12 +81,8 @@ App = {
 
         // return zombieInstance.createRandomZombie({from: account});
         zombieInstance.zombies(id).then(function(result) {
-          console.log(result)
-          // for(var i = 0; i < result.length; i++){
-          //   console.log(result[i].c[0])
-          //   App.getZombieById(result[i].c[0])
-          // }
-          // return App.markAdopted();
+          debugger
+          appendPanda(result.c[1])
         }).catch(function(err) {
           debugger
           // console.log(err.message);

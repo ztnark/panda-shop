@@ -14,11 +14,51 @@
       //     });
       //   }
       // })
+      var appendPanda = (dna) => {
+        console.log(dna)
+        var x = Math.floor(Math.random() * 10)
+        var z = Math.floor(Math.random() * 10)
+        $('#test').after('<a-entity ownedpanda data-dna=' + dna + ' gltf-model="#panda" animation-mixer position="' + x + ' 2.4 ' + z + '" rotation="0 180 0"/>')
+      }
+
+      AFRAME.registerComponent('ownedpanda', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('model-loaded', function (e) {
+            var dna = $(e.target).data('dna')
+            var i = +dna.toString()[0] + 1
+            if(i !== 10){
+              i = "0" + i
+            }
+            e.detail.model.traverse(function(node) {
+              var tex = new THREE.TextureLoader().load('models/panda/textures/panda_' + i + '.jpg');
+              if (node.isMesh) node.material.map = tex;
+            });
+          });
+        }
+      });
+
       AFRAME.registerComponent('panda', {
         init: function () {
-          console.log('Registered');
-          this.el.addEventListener('mouseenter', function (evt) {
-            console.log('I was clicked at: ', evt.detail.target);
+        //   console.log('Registered');
+        //   this.el.addEventListener('mouseenter', function (evt) {
+        //     console.log('I was clicked at: ', evt.detail.target);
+        //   });
+        // }
+          console.log("HERE")
+          var el = this.el;
+          el.addEventListener('model-loaded', function (e) {
+            e.detail.model.traverse(function(node) {
+              var i = 0
+              setInterval(() => {
+                i = i % 10 + 1
+                if(i !== 10){
+                  i = "0" + i
+                }
+                var tex = new THREE.TextureLoader().load('models/panda/textures/panda_' + i + '.jpg');
+                if (node.isMesh) node.material.map = tex;
+              }, 1000)
+            });
           });
         }
       });
@@ -53,7 +93,7 @@
       <a-entity daydream-controls laser-controls="hand: right" intersection-spawn="event: click; mixin: voxel" daydream-listener></a-entity>
         <a-entity buy position="-5 2 -6" geometry="primitive: plane; width: 2; height: auto" material="color: #EF2D5E" text="color: white; align: center; font: https://cdn.aframe.io/fonts/DejaVu-sdf.fnt;
         value: Buy Me!"></a-entity>
-      <a-entity panda gltf-model="#panda" animation-mixer position="1 2.4 -1" rotation="0 180 0"></a-entity>
+      <a-entity panda gltf-model="#panda" id="test" animation-mixer position="1 2.4 -1" rotation="0 180 0"></a-entity>
       <a-sky color="blue"></a-sky>
       <a-plane material="src:https://i.imgur.com/jwZbOjR.png; repeat: 100 100" rotation="-90 0 0" width="500" height="500"></a-plane>
     </a-scene>
