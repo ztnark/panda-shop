@@ -81,7 +81,6 @@ App = {
 
         // return zombieInstance.createRandomZombie({from: account});
         zombieInstance.zombies(id).then(function(result) {
-          debugger
           appendPanda(result.c[1])
         }).catch(function(err) {
           debugger
