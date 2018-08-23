@@ -1,10 +1,10 @@
 var ownable = artifacts.require("./ownable.sol");
-var zombiefactory = artifacts.require("./zombiefactory.sol");
-var zombieownership = artifacts.require("./zombieownership.sol");
+var pandafactory = artifacts.require("./pandafactory.sol");
+var pandaownership = artifacts.require("./pandaownership.sol");
 
 
 module.exports = function(deployer) {
   deployer.deploy(ownable);
-  deployer.deploy(zombiefactory);
-  deployer.deploy(zombieownership);
+  deployer.deploy(pandafactory);
+  deployer.deploy(pandaownership);
 };

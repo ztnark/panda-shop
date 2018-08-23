@@ -23,42 +23,43 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON('ZombieOwnership.json', function(data) {
+    $.getJSON('PandaOwnership.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract.
-      var ZombieArtifact = data;
-      App.contracts.Zombie = TruffleContract(ZombieArtifact);
+      var PandaArtifact = data;
+      App.contracts.Panda = TruffleContract(PandaArtifact);
 
       // Set the provider for our contract.
-      App.contracts.Zombie.setProvider(App.web3Provider);
+      App.contracts.Panda.setProvider(App.web3Provider);
 
       // // Use our contract to retieve and mark the adopted pets.
       // return App.markAdopted();
     });
 
-    return App.getOwnerZombies();
+    return App.getOwnerPandas();
   },
 
   // bindEvents: function() {
   //   $(document).on('click', '.btn-buy', App.buy);
   // },
 
-  getOwnerZombies: () => {
+  getOwnerPandas: () => {
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
         console.log(error);
       }
 
       var account = accounts[0];
+      $('#account').text("Account: " + account)
 
-      App.contracts.Zombie.deployed().then(function(instance) {
-        zombieInstance = instance;
-
-        // zombieInstance.createRandomZombie({from: account});
-        zombieInstance.zombiesOf(account).then(function(result) {
+      App.contracts.Panda.deployed().then(function(instance) {
+        pandaInstance = instance;
+        debugger
+        // pandaInstance.createRandomPanda({from: account});
+        pandaInstance.pandasOf(account).then(function(result) {
           console.log(result)
           for(var i = 0; i < result.length; i++){
             // console.log(result[i].c[0])
-            App.getZombieById(result[i].c[0])
+            App.getPandaById(result[i].c[0])
           }
         }).catch(function(err) {
           debugger
@@ -68,7 +69,7 @@ App = {
     });
   },
 
-  getZombieById: (id) => {
+  getPandaById: (id) => {
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
         console.log(error);
@@ -76,11 +77,11 @@ App = {
 
       var account = accounts[0];
 
-      App.contracts.Zombie.deployed().then(function(instance) {
-        zombieInstance = instance;
+      App.contracts.Panda.deployed().then(function(instance) {
+        pandaInstance = instance;
 
-        // return zombieInstance.createRandomZombie({from: account});
-        zombieInstance.zombies(id).then(function(result) {
+        // return pandaInstance.createRandomPanda({from: account});
+        pandaInstance.pandas(id).then(function(result) {
           appendPanda(result.c[1])
         }).catch(function(err) {
           debugger
@@ -104,11 +105,11 @@ App = {
 
       var account = accounts[0];
 
-      App.contracts.Zombie.deployed().then(function(instance) {
-        zombieInstance = instance;
+      App.contracts.Panda.deployed().then(function(instance) {
+        pandaInstance = instance;
 
-        // return zombieInstance.createRandomZombie({from: account});
-        zombieInstance.sendTransaction({
+        // return pandaInstance.createRandomPanda({from: account});
+        pandaInstance.sendTransaction({
           from: account,
           gas: 210000,
           value: 100000000000000000
