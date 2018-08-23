@@ -18,7 +18,7 @@
         console.log(dna)
         var x = Math.floor(Math.random() * 10)
         var z = Math.floor(Math.random() * 10)
-        $('#test').after('<a-entity ownedpanda data-dna=' + dna + ' gltf-model="#panda" animation-mixer position="' + x + ' 2.4 ' + z + '" rotation="0 180 0"/>')
+        $('#test').after('<a-entity ownedpanda data-dna=' + dna + ' gltf-model="#panda" animation-mixer="clip: excited; duration: 2" position="' + x + ' 2.4 ' + z + '" rotation="0 180 0"/>')
       }
 
       AFRAME.registerComponent('ownedpanda', {
@@ -83,19 +83,31 @@
     </script>
   </head>
   <body>
+    <div style="position: absolute;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    justify-content: center;">
+      <span id="account" style="background-color: #EF03BD;
+      color: white;
+      padding: 5px;
+      border-radius: 5px"></span>
+    </div>
     <a-scene>
       <a-camera>
         <a-cursor></a-cursor>
       </a-camera>
       <a-assets>
         <a-asset-item id="panda" src="models/panda/scene.gltf">
+        <a-asset-item id="portal" src="models/portal/scene.gltf"></a-asset-item>
       </a-assets>
       <a-entity daydream-controls laser-controls="hand: right" intersection-spawn="event: click; mixin: voxel" daydream-listener></a-entity>
-        <a-entity buy position="-5 2 -6" geometry="primitive: plane; width: 2; height: auto" material="color: #EF2D5E" text="color: white; align: center; font: https://cdn.aframe.io/fonts/DejaVu-sdf.fnt;
+        <a-entity buy position="1 2 -10" geometry="primitive: plane; width: 2; height: auto" material="color: #EF2D5E" text="color: white; align: center; font: https://cdn.aframe.io/fonts/DejaVu-sdf.fnt;
         value: Buy Me!"></a-entity>
-      <a-entity panda gltf-model="#panda" id="test" animation-mixer position="1 2.4 -1" rotation="0 180 0"></a-entity>
-      <a-sky color="blue"></a-sky>
-      <a-plane material="src:https://i.imgur.com/jwZbOjR.png; repeat: 100 100" rotation="-90 0 0" width="500" height="500"></a-plane>
+      <a-entity panda gltf-model="#panda" id="test" animation-mixer="clip: jump_high; duration: 2" position="7 2.4 -5" rotation="0 180 0"></a-entity>
+      <a-entity gltf-model="#portal" position="0 0.48 0" rotation="0 90 0" scale="0.003 0.003 0.003"></a-entity>
+      <!-- <a-sky color="blue"></a-sky> -->
+      <!-- <a-plane material="src:https://i.imgur.com/jwZbOjR.png; repeat: 100 100" rotation="-90 0 0" width="500" height="500"></a-plane> -->
     </a-scene>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
