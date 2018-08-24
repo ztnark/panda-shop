@@ -3,7 +3,7 @@ var PandaOwnership = artifacts.require("pandaownership");
 contract('PandaOwnership', function(accounts) {
   it("should buy a panda", function(){
     return PandaOwnership.deployed().then(function(instance) {
-      instance.sendTransaction({from:accounts[0], value:100000000000000})
+      instance.sendTransaction({from:accounts[0], value:100000000000})
       return instance
     }).then(function(instance){
       instance.pandaToOwner(0).then((res) => {
@@ -23,17 +23,24 @@ contract('PandaOwnership', function(accounts) {
       instance.transfer(accounts[1], 0)
       return instance
     }).then((instance) => {
-      instance.pandasOf(accounts[1]).then((res) => {
-        console.log(res)
-        assert.equal(res[0].c[0], 1, "ownership of panda 1 has been transfered to account at index 1")
+      instance.pandaToOwner(0).then((res) => {
+        assert.equal(res, accounts[1], "account at index 1 owns panda with the id 0")
       })
     })
   })
-  it("should return panda data", function(){
-    PandaOwnership.deployed().then(function(instance) {
-      instance.panda(0).then((res) => {
-        assert.equal(res[0].c, 0, "owner has panda 0")
+  it("should return panda DNA", function(){
+    return PandaOwnership.deployed().then(function(instance) {
+      return instance.pandas(0).then((res) => {
+        var expectedLength = 14 
+        assert.equal(("" + res.c[1]).length, expectedLength, "Panda DNA should be 14 characters")
       })
+    })
+  })
+  it("should return the pandas owner", function(){
+    return PandaOwnership.deployed().then(function(instance) {
+      return instance.pandaToOwner(0)
+    }).then((res) => {
+      assert.equal(res, accounts[1], "account at index 0 owns panda with the id 0")
     })
   })
 })
