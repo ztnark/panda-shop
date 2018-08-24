@@ -2,7 +2,10 @@ pragma solidity ^0.4.23;
 
 import "./pandaFactory.sol";
 
-contract PandaOwnership is PandaFactory {
+import "./CircuitBreaker.sol";
+
+
+contract PandaOwnership is PandaFactory, CircuitBreaker {
 
   mapping (uint => address) pandaApprovals;
 
@@ -41,7 +44,7 @@ contract PandaOwnership is PandaFactory {
     _transfer(owner, msg.sender, _tokenId);
   }
   
-  function () payable public {
+  function () stopInEmergency payable public {
     if (msg.value > 0) {
       createRandomPanda();
     }
