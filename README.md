@@ -7,6 +7,6 @@ To run the application:
 1. Start ```testrpc```
 2. ```cd truffle && truffle compile && truffle migrate```
 3. ```cp build/pandaownership.json ../a-panda/PandaOwnership.json```
-4. ``` cd ../a-panda && npm install```
+4. ``` cd ../a-panda && npm install http-server```
 5. ```http-server```
 6. Navigate to the provided url (most likely http://localhost:8080)
