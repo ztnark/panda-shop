@@ -24,4 +24,4 @@ Contract functions begin with require statements to ensure that transactions are
 All functions related to control of CryptoPandas are restricted to the current Panda owner through the onlyOwnerOf modifier. This modifier ensures that the sender is the current owner of the Panda. In addition, the contract itself inherits from the ownable contract, which sets the account who deployed the contract as the owner, and only allows that user to transfer the contract.
 
 ## EthPM
-Because this application did not require an EthPM package, I have included and example contract, 'ethPMExample.sol', which uses OpenZepplin's 
+Because this application did not require an EthPM package, I have included and example contract, 'ethPMExample.sol', which uses OpenZepplin's SafeMath library for uint256 math.
