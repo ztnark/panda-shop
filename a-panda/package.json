@@ -1,0 +1,9 @@
+{
+    "name": "apanda",
+    "version": "0.0.1",
+    "description": "VR CryptoPandas.",
+    "author": "Jeff Krantz",
+    "dependencies": {
+        "http-server": "0.11.1"
+    }
+}

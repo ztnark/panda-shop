@@ -1,6 +1,3 @@
-
-This project is an ERC-721 token for VR "Cryptopandas". Currently, the front-end allows you to purchase a random CryptoPanda Token, and the contract follows the ERC-721 protocol. This document includes notes on the requirements for the project.
-
 ## Design Pattern Requirements
 
 ##### Emergency Stop
