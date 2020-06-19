@@ -1,7 +1,7 @@
-var ownable = artifacts.require("./ownable.sol");
-var circuitbreaker = artifacts.require("./circuitbreaker.sol");
-var pandafactory = artifacts.require("./pandafactory.sol");
-var pandaownership = artifacts.require("./pandaownership.sol");
+var ownable = artifacts.require("./Ownable.sol");
+var circuitbreaker = artifacts.require("./CircuitBreaker.sol");
+var pandafactory = artifacts.require("./PandaFactory.sol");
+var pandaownership = artifacts.require("./PandaOwnership.sol");
 
 
 module.exports = function(deployer) {

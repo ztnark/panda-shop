@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-import "./ownable.sol";
+import "./Ownable.sol";
 
 contract CircuitBreaker is Ownable {
 
